@@ -1,0 +1,27 @@
+{
+  "name": "bptracker-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "sass": "^1.77.2",
+    "svelte": "^4.2.12",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.2",
+    "@types/luxon": "^3.4.2",
+    "chart.js": "^4.4.3",
+    "i": "^0.3.7",
+    "luxon": "^3.4.4",
+    "npm": "^10.8.0",
+    "svelte-fontawesome": "^0.0.3"
+  }
+}
