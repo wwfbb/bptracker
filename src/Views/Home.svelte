@@ -11,6 +11,7 @@
     } from "../lib/data_fetch";
 
     Chart.register(...registerables);
+    Chart.defaults.color = "#fff";
 
     let bpContainerCanvas: HTMLCanvasElement;
     let hrContainerCanvas: HTMLCanvasElement;
@@ -39,7 +40,6 @@
                         data: getSysValues(data),
                         fill: false,
                         tension: 0.1,
-			color: "#fff"
                     },
                     {
                         label: "Diastolic",

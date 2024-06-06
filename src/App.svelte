@@ -11,7 +11,7 @@
 	onMount(() => {
 		if (window.innerWidth > 600) {
 			console.log("Moving to desktop");
-			location.href = "/desktop.html";
+			// location.href = "/desktop.html";
 		}
 	});
 </script>
