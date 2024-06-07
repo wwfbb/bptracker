@@ -62,7 +62,7 @@ export async function fetchData(timeFrame: TimeFrame) {
   if (!data) throw error;
 
   data.map((record) => {
-    labels.push(`${record.date} ${getShortCode(record.time)}`);
+    labels.push(`${record.date} ${record.time}`);
     hrValues.push(record.heart_rate);
     sysValues.push(record.value_sys);
     diaValues.push(record.value_dia);
@@ -72,7 +72,7 @@ export async function fetchData(timeFrame: TimeFrame) {
 }
 
 export function getLabels(fetchedData) {
-  return fetchedData.chart_labels;
+  return fetchedData.labels;
 }
 
 export function getSysValues(fetchedData) {
