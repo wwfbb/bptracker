@@ -9,6 +9,7 @@
         getLabels,
         getSysValues,
     } from "../lib/data_fetch";
+    import { pruneData } from "../lib/prune";
 
     Chart.register(...registerables);
     Chart.defaults.color = "#fff";
@@ -19,11 +20,21 @@
     let hrChart: Chart;
     let chartInited = false;
     let fetchTimeFrame = TimeFrame.LAST_WEEK;
+    let showChart = false;
+    let chartText = "Fetching data...";
 
     function initializeCharts(data) {
         if (chartInited) {
             hrChart.destroy();
             bpChart.destroy();
+        }
+
+        if (!data.labels.length) {
+            showChart = false;
+            chartText = "No data!";
+            return;
+        } else {
+            showChart = true;
         }
 
         chartInited = true;
@@ -67,9 +78,9 @@
         });
     }
 
-    onMount(() => {
-        initializeCharts({});
-    });
+    // onMount(() => {
+    //     initializeCharts({});
+    // });
 
     $: {
         fetchData(fetchTimeFrame).then(initializeCharts);
@@ -94,21 +105,36 @@
     <div class="bpContainer">
         <h2>Blood Pressure</h2>
         <canvas
+            style={`display: ${showChart ? "flex" : "none"};`}
+            class="canvas"
             bind:this={bpContainerCanvas}
             height={globalThis.vh * 40}
             width={globalThis.vw * 100}
         >
         </canvas>
+        {#if !showChart}
+            <div class="canvas nodata">
+                <h2>{chartText}</h2>
+            </div>
+        {/if}
     </div>
 
     <div class="hrContainer">
         <h2>Heart Rate</h2>
         <canvas
+            style={`display: ${showChart ? "flex" : "none"};`}
+            class="canvas"
             bind:this={hrContainerCanvas}
             height={globalThis.vh * 40}
             width={globalThis.vw * 100}
         >
         </canvas>
+
+        {#if !showChart}
+            <div class="canvas nodata">
+                <h2>{chartText}</h2>
+            </div>
+        {/if}
     </div>
 </main>
 
@@ -136,7 +162,8 @@
         color: #fff;
     }
 
-    h1 {
+    h1,
+    h2 {
         font-family: "Noto Sans", sans-serif;
         font-optical-sizing: auto;
         margin-bottom: 16px;
@@ -152,8 +179,15 @@
         font-variation-settings: "wdth" 100;
     }
 
-    canvas {
-        width: 100vw;
+    .canvas {
+        width: 100%;
         margin: 5px;
+        height: 25vh;
+    }
+
+    .nodata {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>

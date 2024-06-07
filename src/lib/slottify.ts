@@ -4,7 +4,7 @@ import { DateTime, DurationLike } from "luxon";
 export function generateLabels(delta: DurationLike) {
     const now = DateTime.now()
     const then = now.minus(delta)
-    console.log(then, now)
+    // console.log(then, now)
 
     const timeLabels = ["M", "A", "E", "N"]
 
@@ -18,16 +18,16 @@ export function generateLabels(delta: DurationLike) {
         i++
         if (i > 300) throw "generateLabels did not resolve in reasonable amount of time"
         compare = compare.plus({ days: 1 })
-        console.log(compare.toSQLDate(), now.toSQLDate())
-        if (compare.toSQLDate() === now.toSQLDate()) {
-            console.log(now, then)
-        }
+        // console.log(compare.toSQLDate(), now.toSQLDate())
+        // if (compare.toSQLDate() === now.toSQLDate()) {
+        // console.log(now, then)
+        // }
         daysBetween.push(compare)
     }
 
     for (const day of daysBetween) {
         for (const time of timeLabels) {
-            labels.push(`${day.toSQLDate()} ${time}`)
+            labels.push(`${day.toFormat("LLL dd")} ${time}`)
         }
     }
 

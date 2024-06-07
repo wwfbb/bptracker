@@ -35,4 +35,7 @@ export function switchToUser(userEmail, userUUID) {
     console.log(userEmail, userUUID)
     currentUserEmail.set(userEmail);
     currentUserUUID.set(userUUID);
+
+    localStorage.setItem("email", userEmail);
+    localStorage.setItem("uuid", userUUID);
 }
