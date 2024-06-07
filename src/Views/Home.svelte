@@ -24,19 +24,22 @@
     let chartText = "Fetching data...";
 
     function initializeCharts(data) {
+        console.log("==== CHANGED ====", data.labels.length, showChart ? "flex" : "none")
         if (chartInited) {
             hrChart.destroy();
             bpChart.destroy();
         }
         console.log(data)
 
-        if (!data.labels.length) {
+        if (data.labels.length === 0) {
             showChart = false;
             chartText = "No data!";
+            console.log("No data!")
             return;
-        } else {
-            showChart = true;
         }
+        showChart = true;
+        chartDisplayStyle = "display: block";
+        console.log("Reach")
 
         chartInited = true;
         const bpChartContext = bpContainerCanvas.getContext("2d");
@@ -52,36 +55,43 @@
                         data: getSysValues(data).morning,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#DA012D"
                     },
                     {
                         label: "Diastolic - Morning",
                         data: getDiaValues(data).morning,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#00FFEF"
                     },
                     {
                         label: "Systolic - Afternoon",
                         data: getSysValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#960018"
+
                     },
                     {
                         label: "Diastolic - Afternoon",
                         data: getDiaValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#007FFF"
                     },
                     {
                         label: "Systolic - Night",
                         data: getSysValues(data).night,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#722F37"
                     },
                     {
                         label: "Diastolic - Night",
                         data: getDiaValues(data).night,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#191970"
                     },
                 ],
             },
@@ -97,18 +107,22 @@
                         data: getHrValues(data).morning,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#DA012D"
                     },
                     {
                         label: "Heart Rate - Afternoon",
                         data: getHrValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#960018"
                     },
                     {
                         label: "Heart Rate - Night",
                         data: getHrValues(data).night,
                         fill: false,
                         tension: 0.1,
+                        borderColor: "#722F37"
+
                     }
                 ],
             },
@@ -119,7 +133,12 @@
     //     initializeCharts({});
     // });
 
+    let chartDisplayStyle = ""
+
     $: {
+        chartDisplayStyle = "display: none;";
+        showChart = false;
+        chartText = "Fetching...."
         fetchData(fetchTimeFrame).then(initializeCharts);
     }
 </script>
@@ -141,8 +160,9 @@
 
     <div class="bpContainer">
         <h2>Blood Pressure</h2>
+        <!-- Don't use string interpolation, it messes with reactivity -->
         <canvas
-            style={`display: ${showChart ? "flex" : "none"};`}
+            style={chartDisplayStyle} 
             class="canvas"
             bind:this={bpContainerCanvas}
             height={globalThis.vh * 40}
@@ -158,8 +178,9 @@
 
     <div class="hrContainer">
         <h2>Heart Rate</h2>
+        <!-- Don't use string interpolation, it messes with reactivity -->
         <canvas
-            style={`display: ${showChart ? "flex" : "none"};`}
+            style={chartDisplayStyle}
             class="canvas"
             bind:this={hrContainerCanvas}
             height={globalThis.vh * 40}
