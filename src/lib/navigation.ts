@@ -1,11 +1,11 @@
 import { writable } from "svelte/store";
 
 export enum Screen {
-    HOME_SCREEN,
-    ADD_RECORD,
-    SYNC_DETAILS,
-    RAW_DATA,
-    EDIT_RECORD
+  HOME_SCREEN,
+  ADD_RECORD,
+  SYNC_DETAILS,
+  RAW_DATA,
+  EDIT_RECORD,
 }
 
 export const recordToEdit = writable();
