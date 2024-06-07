@@ -63,9 +63,9 @@
                 <option value={Time.AFTERNOON} selected={Time.AFTERNOON == time}
                     >Afternoon</option
                 >
-                <option value={Time.EVENING} selected={Time.EVENING == time}
+                <!-- <option value={Time.EVENING} selected={Time.EVENING == time}
                     >Evening</option
-                >
+                > -->
                 <option value={Time.NIGHT} selected={Time.NIGHT == time}
                     >Night</option
                 >
