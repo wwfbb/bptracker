@@ -3,7 +3,6 @@ import { DateTime, Duration } from "luxon";
 import { currentUserUUID } from "./supaclient";
 import { get } from "svelte/store";
 import { generateLabels } from "../lib/slottify";
-import { Exception } from "sass";
 
 export enum TimeFrame {
   LAST_WEEK,
@@ -18,17 +17,10 @@ export enum Time {
   NIGHT = 3,
 }
 
-function getShortCode(time) {
-  switch (time) {
-    case Time.MORNING:
-      return "M";
-    case Time.AFTERNOON:
-      return "A";
-    case Time.EVENING:
-      return "E";
-    case Time.NIGHT:
-      return "N";
-  }
+type TimedList = {
+  morning: Array<number>
+  afternoon: Array<number>
+  night: Array<number>
 }
 
 export async function fetchData(timeFrame: TimeFrame) {
@@ -48,9 +40,9 @@ export async function fetchData(timeFrame: TimeFrame) {
 
   let chart_labels: Array<string> = generateLabels(duration);
   let labels: Array<string> = [];
-  let hrValues: Array<number> = [];
-  let sysValues: Array<number> = [];
-  let diaValues: Array<number> = [];
+  let hrValues: TimedList = {morning: [], afternoon: [], night: []};
+  let sysValues: TimedList = {morning: [], afternoon: [], night: []};
+  let diaValues: TimedList = {morning: [], afternoon: [], night: []};
 
   let { error, data } = await supabase
     .from("record")
@@ -62,13 +54,26 @@ export async function fetchData(timeFrame: TimeFrame) {
   if (!data) throw error;
 
   data.map((record) => {
-    labels.push(`${record.date} ${record.time}`);
-    hrValues.push(record.heart_rate);
-    sysValues.push(record.value_sys);
-    diaValues.push(record.value_dia);
+    labels.push(`${DateTime.fromSQL(record.date).toFormat("LLL dd")}`);
+
+    if (Number(record.time) == Time.MORNING) {
+      hrValues.morning.push(record.heart_rate);
+      sysValues.morning.push(record.value_sys);
+      diaValues.morning.push(record.value_dia);
+    } else if (Number(record.time) == Time.AFTERNOON) {
+      hrValues.afternoon.push(record.heart_rate);
+      sysValues.afternoon.push(record.value_sys);
+      diaValues.afternoon.push(record.value_dia);
+    } if (Number(record.time) == Time.NIGHT) {
+      hrValues.night.push(record.heart_rate);
+      sysValues.night.push(record.value_sys);
+      diaValues.night.push(record.value_dia);
+    }
   });
 
-  return { labels, hrValues, sysValues, diaValues, chart_labels };
+  const labels_deduped = [...new Set(labels)];
+
+  return {  labels: labels_deduped, hrValues, sysValues, diaValues, chart_labels };
 }
 
 export function getLabels(fetchedData) {

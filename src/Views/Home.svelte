@@ -28,6 +28,7 @@
             hrChart.destroy();
             bpChart.destroy();
         }
+        console.log(data)
 
         if (!data.labels.length) {
             showChart = false;
@@ -47,14 +48,38 @@
                 labels: getLabels(data),
                 datasets: [
                     {
-                        label: "Systolic",
-                        data: getSysValues(data),
+                        label: "Systolic - Morning",
+                        data: getSysValues(data).morning,
                         fill: false,
                         tension: 0.1,
                     },
                     {
-                        label: "Diastolic",
-                        data: getDiaValues(data),
+                        label: "Diastolic - Morning",
+                        data: getDiaValues(data).morning,
+                        fill: false,
+                        tension: 0.1,
+                    },
+                    {
+                        label: "Systolic - Afternoon",
+                        data: getSysValues(data).afternoon,
+                        fill: false,
+                        tension: 0.1,
+                    },
+                    {
+                        label: "Diastolic - Afternoon",
+                        data: getDiaValues(data).afternoon,
+                        fill: false,
+                        tension: 0.1,
+                    },
+                    {
+                        label: "Systolic - Night",
+                        data: getSysValues(data).night,
+                        fill: false,
+                        tension: 0.1,
+                    },
+                    {
+                        label: "Diastolic - Night",
+                        data: getDiaValues(data).night,
                         fill: false,
                         tension: 0.1,
                     },
@@ -68,11 +93,23 @@
                 labels: getLabels(data),
                 datasets: [
                     {
-                        label: "Heart Rate",
-                        data: getHrValues(data),
+                        label: "Heart Rate - Morning",
+                        data: getHrValues(data).morning,
                         fill: false,
                         tension: 0.1,
                     },
+                    {
+                        label: "Heart Rate - Afternoon",
+                        data: getHrValues(data).afternoon,
+                        fill: false,
+                        tension: 0.1,
+                    },
+                    {
+                        label: "Heart Rate - Night",
+                        data: getHrValues(data).night,
+                        fill: false,
+                        tension: 0.1,
+                    }
                 ],
             },
         });
