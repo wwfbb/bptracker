@@ -40,7 +40,7 @@
                 <select name="time">
                     <option value={Time.MORNING}>Morning</option>
                     <option value={Time.AFTERNOON}>Afternoon</option>
-                    <option value={Time.EVENING}>Evening</option>
+                    <!-- <option value={Time.EVENING}>Evening</option> -->
                     <option value={Time.NIGHT}>Night</option>
                 </select>
             </div>
