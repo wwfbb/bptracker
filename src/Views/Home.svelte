@@ -55,43 +55,49 @@
                         data: getSysValues(data).morning,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#DA012D"
+                        borderColor: "#DA012D",
+                        borderWidth: 1,
                     },
                     {
                         label: "Diastolic - Morning",
                         data: getDiaValues(data).morning,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#00FFEF"
+                        borderColor: "#00FFEF",
+                        borderWidth: 1,
                     },
                     {
                         label: "Systolic - Afternoon",
                         data: getSysValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#960018"
-
+                        borderColor: "#960018",
+                        borderWidth: 1,
                     },
                     {
                         label: "Diastolic - Afternoon",
                         data: getDiaValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#007FFF"
+                        borderColor: "#007FFF",
+                        borderWidth: 1,
+
                     },
                     {
                         label: "Systolic - Night",
                         data: getSysValues(data).night,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#722F37"
+                        borderColor: "#722F37",
+                        borderWidth: 1,
                     },
                     {
                         label: "Diastolic - Night",
                         data: getDiaValues(data).night,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#191970"
+                        borderColor: "#191970",
+                        borderWidth: 1,
                     },
                 ],
             },
@@ -107,21 +113,24 @@
                         data: getHrValues(data).morning,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#DA012D"
+                        borderColor: "#37FD12",
+                        borderWidth: 0.5,
                     },
                     {
                         label: "Heart Rate - Afternoon",
                         data: getHrValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#960018"
+                        borderColor: "#C7EA46",
+                        borderWidth: 0.5,
                     },
                     {
                         label: "Heart Rate - Night",
                         data: getHrValues(data).night,
                         fill: false,
                         tension: 0.1,
-                        borderColor: "#722F37"
+                        borderColor: "#2E8B57",
+                        borderWidth: 0.5,
 
                     }
                 ],

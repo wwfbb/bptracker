@@ -15,7 +15,7 @@
     <script>
       /* auto update script*/
       let cacheInvalidateSeconds = 60 * 60 * 24 * 3
-      let lastRefresh = localStorage.getItem("cache-token")
+      let lastRefresh = Number(localStorage.getItem("cache-token"))
       let nowTime = new Date().valueOf() / 1000
 
       if (!lastRefresh) {
