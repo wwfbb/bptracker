@@ -14,9 +14,11 @@
     Chart.register(...registerables);
     Chart.defaults.color = "#fff";
 
-    let bpContainerCanvas: HTMLCanvasElement;
+    let bpSysContainerCanvas: HTMLCanvasElement;
+    let bpDiaContainerCanvas: HTMLCanvasElement;
     let hrContainerCanvas: HTMLCanvasElement;
-    let bpChart: Chart;
+    let bpSysChart: Chart;
+    let bpDiaChart: Chart;
     let hrChart: Chart;
     let chartInited = false;
     let fetchTimeFrame = TimeFrame.LAST_WEEK;
@@ -27,7 +29,8 @@
         console.log("==== CHANGED ====", data.labels.length, showChart ? "flex" : "none")
         if (chartInited) {
             hrChart.destroy();
-            bpChart.destroy();
+            bpSysChart.destroy();
+            bpDiaChart.destroy();
         }
         console.log(data)
 
@@ -42,62 +45,72 @@
         console.log("Reach")
 
         chartInited = true;
-        const bpChartContext = bpContainerCanvas.getContext("2d");
+        const bpSysChartContext = bpSysContainerCanvas.getContext("2d");
+        const bpDiaChartContext = bpDiaContainerCanvas.getContext("2d");
         const hrChartContext = hrContainerCanvas.getContext("2d");
 
-        bpChart = new Chart(bpChartContext, {
+        bpSysChart = new Chart(bpSysChartContext, {
             type: "line",
             data: {
                 labels: getLabels(data),
                 datasets: [
                     {
-                        label: "Systolic - Morning",
+                        label: "Morning",
                         data: getSysValues(data).morning,
                         fill: false,
                         tension: 0.1,
                         borderColor: "#DA012D",
-                        borderWidth: 1,
+                        borderWidth: 0.5,
                     },
                     {
-                        label: "Diastolic - Morning",
-                        data: getDiaValues(data).morning,
-                        fill: false,
-                        tension: 0.1,
-                        borderColor: "#00FFEF",
-                        borderWidth: 1,
-                    },
-                    {
-                        label: "Systolic - Afternoon",
+                        label: "Afternoon",
                         data: getSysValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
                         borderColor: "#960018",
-                        borderWidth: 1,
+                        borderWidth: 0.5,
                     },
                     {
-                        label: "Diastolic - Afternoon",
-                        data: getDiaValues(data).afternoon,
-                        fill: false,
-                        tension: 0.1,
-                        borderColor: "#007FFF",
-                        borderWidth: 1,
-
-                    },
-                    {
-                        label: "Systolic - Night",
+                        label: "Night",
                         data: getSysValues(data).night,
                         fill: false,
                         tension: 0.1,
                         borderColor: "#722F37",
-                        borderWidth: 1,
+                        borderWidth: 0.5,
+                    },
+                ],
+            },
+        });
+
+        bpDiaChart = new Chart(bpDiaChartContext, {
+            type: "line",
+            data: {
+                labels: getLabels(data),
+                datasets: [
+                    {
+                        label: "Morning",
+                        data: getDiaValues(data).morning,
+                        fill: false,
+                        tension: 0.1,
+                        borderColor: "#00FFEF",
+                        borderWidth: 0.5,
+
                     },
                     {
-                        label: "Diastolic - Night",
+                        label: "Afternoon",
+                        data: getDiaValues(data).afternoon,
+                        fill: false,
+                        tension: 0.1,
+                        borderColor: "#007FFF",
+                        borderWidth: 0.5,
+                    },
+                    {
+                        label: "Night",
                         data: getDiaValues(data).night,
                         fill: false,
                         tension: 0.1,
                         borderColor: "#191970",
-                        borderWidth: 1,
+                        borderWidth: 0.5,
                     },
                 ],
             },
@@ -109,7 +122,7 @@
                 labels: getLabels(data),
                 datasets: [
                     {
-                        label: "Heart Rate - Morning",
+                        label: "Morning",
                         data: getHrValues(data).morning,
                         fill: false,
                         tension: 0.1,
@@ -117,7 +130,7 @@
                         borderWidth: 0.5,
                     },
                     {
-                        label: "Heart Rate - Afternoon",
+                        label: "Afternoon",
                         data: getHrValues(data).afternoon,
                         fill: false,
                         tension: 0.1,
@@ -125,7 +138,7 @@
                         borderWidth: 0.5,
                     },
                     {
-                        label: "Heart Rate - Night",
+                        label: "Night",
                         data: getHrValues(data).night,
                         fill: false,
                         tension: 0.1,
@@ -168,12 +181,30 @@
     </div>
 
     <div class="bpContainer">
-        <h2>Blood Pressure</h2>
+        <h2>Systolic Blood Pressure</h2>
         <!-- Don't use string interpolation, it messes with reactivity -->
         <canvas
             style={chartDisplayStyle} 
             class="canvas"
-            bind:this={bpContainerCanvas}
+            bind:this={bpSysContainerCanvas}
+            height={globalThis.vh * 40}
+            width={globalThis.vw * 100}
+        >
+        </canvas>
+        {#if !showChart}
+            <div class="canvas nodata">
+                <h2>{chartText}</h2>
+            </div>
+        {/if}
+    </div>
+
+    <div class="bpContainer">
+        <h2>Diastolic Blood Pressure</h2>
+        <!-- Don't use string interpolation, it messes with reactivity -->
+        <canvas
+            style={chartDisplayStyle} 
+            class="canvas"
+            bind:this={bpDiaContainerCanvas}
             height={globalThis.vh * 40}
             width={globalThis.vw * 100}
         >
@@ -212,13 +243,13 @@
         border-radius: 5px;
         font-size: 110%;
         padding: 10px 16px;
-        margin: 8px 0;
+        /* margin: 8px 0; */
         color: #333;
         outline: none;
     }
 
     .padded {
-        padding: 32px;
+        padding: 8px 32px;
     }
 
     h2 {
@@ -233,18 +264,19 @@
     h2 {
         font-family: "Noto Sans", sans-serif;
         font-optical-sizing: auto;
-        margin-bottom: 16px;
+        /* margin-bottom: 8px; */
         font-style: normal;
         font-variation-settings: "wdth" 100;
+        font-weight: 400;
     }
 
-    h2 {
+    /* h2 {
         font-family: "Noto Sans", sans-serif;
         font-optical-sizing: auto;
         font-weight: 400;
         font-style: normal;
         font-variation-settings: "wdth" 100;
-    }
+    } */
 
     .canvas {
         width: 100%;
