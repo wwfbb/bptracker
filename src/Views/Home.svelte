@@ -48,6 +48,7 @@
         const bpSysChartContext = bpSysContainerCanvas.getContext("2d");
         const bpDiaChartContext = bpDiaContainerCanvas.getContext("2d");
         const hrChartContext = hrContainerCanvas.getContext("2d");
+        const spanGaps = true;
 
         bpSysChart = new Chart(bpSysChartContext, {
             type: "line",
@@ -61,6 +62,7 @@
                         tension: 0.1,
                         borderColor: "#DA012D",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                     {
                         label: "Afternoon",
@@ -69,6 +71,7 @@
                         tension: 0.1,
                         borderColor: "#960018",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                     {
                         label: "Night",
@@ -77,6 +80,7 @@
                         tension: 0.1,
                         borderColor: "#722F37",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                 ],
             },
@@ -94,6 +98,7 @@
                         tension: 0.1,
                         borderColor: "#00FFEF",
                         borderWidth: 0.5,
+                        spanGaps,
 
                     },
                     {
@@ -103,6 +108,7 @@
                         tension: 0.1,
                         borderColor: "#007FFF",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                     {
                         label: "Night",
@@ -111,6 +117,7 @@
                         tension: 0.1,
                         borderColor: "#191970",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                 ],
             },
@@ -128,6 +135,7 @@
                         tension: 0.1,
                         borderColor: "#37FD12",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                     {
                         label: "Afternoon",
@@ -136,6 +144,7 @@
                         tension: 0.1,
                         borderColor: "#C7EA46",
                         borderWidth: 0.5,
+                        spanGaps,
                     },
                     {
                         label: "Night",
@@ -144,6 +153,7 @@
                         tension: 0.1,
                         borderColor: "#2E8B57",
                         borderWidth: 0.5,
+                        spanGaps,
 
                     }
                 ],
