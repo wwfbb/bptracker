@@ -14,17 +14,17 @@
     <script type="module" src="/src/main.js"></script>
     <script>
       /* auto update script*/
-      let cacheInvalidateSeconds = 60 * 60 * 24 * 3
-      let lastRefresh = Number(localStorage.getItem("cache-token"))
-      let nowTime = new Date().valueOf() / 1000
+      let cacheInvalidateSeconds = 60 * 60 * 24 * 3;
+      let lastRefresh = Number(localStorage.getItem("cache-token"));
+      let nowTime = new Date().valueOf() / 1000;
 
       if (!lastRefresh) {
-        localStorage.setItem("cache-token", 0)
+        localStorage.setItem("cache-token", 0);
       }
 
-      if ((nowTime - lastRefresh) > cacheInvalidateSeconds) {
+      if (nowTime - lastRefresh > cacheInvalidateSeconds) {
         localStorage.setItem("cache-token", nowTime);
-        alert("Updating....")
+        alert("Updating....");
       }
     </script>
   </body>
