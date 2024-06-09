@@ -84,6 +84,13 @@
                     },
                 ],
             },
+            options: {
+                plugins: {
+                    tooltip: {
+                        mode: "index"
+                    }
+                }
+            }
         });
 
         bpDiaChart = new Chart(bpDiaChartContext, {
@@ -121,6 +128,13 @@
                     },
                 ],
             },
+            options: {
+                plugins: {
+                    tooltip: {
+                        mode: "index"
+                    }
+                }
+            }
         });
 
         hrChart = new Chart(hrChartContext, {
@@ -158,6 +172,13 @@
                     }
                 ],
             },
+            options: {
+                plugins: {
+                    tooltip: {
+                        mode: "index"
+                    }
+                }
+            }
         });
     }
 
